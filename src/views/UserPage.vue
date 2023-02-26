@@ -14,6 +14,7 @@
       <template v-for="(item, key, idx) in result.address">
         <li :key="idx" v-if="key !== 'geo'">{{ key }}: {{ item }}</li>
         <ul :key="idx" v-else>
+          Geo:
           <li v-for="(geoItem, key, idx2) in item" :key="idx2">
             {{ key }}: {{ geoItem }}
           </li>
