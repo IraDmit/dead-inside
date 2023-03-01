@@ -5,14 +5,19 @@
       <router-link to="/"> home</router-link>
     </nav>
 
-    <label class="switch">
-      <input type="checkbox" v-model="isBlack" />
-      <span class="slider round" :class="{ black: isBlack }"></span>
-    </label>
+    <div class="rCol">
+      <p @click="updateModalValue('login')">login</p>
+      <p @click="updateModalValue('register')">register</p>
+      <label class="switch">
+        <input type="checkbox" v-model="isBlack" />
+        <span class="slider round" :class="{ black: isBlack }"></span>
+      </label>
+    </div>
   </header>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -25,6 +30,9 @@ export default {
       this.$emit("setTheme", newValue ? "black" : "white");
       // newValue ? localStorage.theme = 'white' : localStorage.theme = 'black';
     },
+  },
+  methods:{
+    ...mapActions(['updateModalValue']),
   },
   mounted() {
     console.log(localStorage.theme);
@@ -43,12 +51,12 @@ header {
   background-color: #173955;
 
   nav {
-    a{
-        color: #fff;
+    a {
+      color: #fff;
     }
-    a:not(:last-of-type){
-        margin-right: 10px;
-    } 
+    a:not(:last-of-type) {
+      margin-right: 10px;
+    }
   }
 }
 

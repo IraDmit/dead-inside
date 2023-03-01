@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import modals from "./modals";
 
 Vue.use(Vuex);
 // Vue.use(axios);
@@ -30,12 +31,12 @@ export default new Vuex.Store({
         "https://jsonplaceholder.typicode.com/users"
       );
       const test = {
-          a: fetchUsers.data,
-          b: fetchUsers.data,
-      }
+        a: fetchUsers.data,
+        b: fetchUsers.data,
+      };
       commit("changeUsers", test);
     },
-    setFilterUsers({ commit }, filterArr  ) {
+    setFilterUsers({ commit }, filterArr) {
       commit("changeUsers", filterArr, true);
     },
   },
@@ -44,5 +45,8 @@ export default new Vuex.Store({
     getUsersRes(state) {
       return state.users ? state.users : null;
     },
+  },
+  modules: {
+    modals,
   },
 });
