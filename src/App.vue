@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <app-header />
+  <div id="app" :class="theme">
+    <app-header @setTheme="setTheme" />
     <div class="container">
       <router-view :key="$route.fullPath"></router-view>
     </div>
@@ -8,13 +8,22 @@
 </template>
 
 <script>
-import AppHeader from "./components/app-header.vue";
+import AppHeader from "./components/navigations/app-header.vue";
 
 export default {
   components: { AppHeader },
+  data() {
+    return {
+      theme: 'white'
+    }
+  },
+  methods:{
+    setTheme(theme){
+      this.theme = theme;
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-
 </style>

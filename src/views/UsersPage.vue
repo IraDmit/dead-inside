@@ -1,16 +1,10 @@
 <template>
-  <div v-if="result" class="container">
-    <input
-      type="text"
-      placeholder="name"
-      @input="filterName($event.target.value)"
-    />
+  <div class="container" v-if="loaded">
+    <app-user-search/>
     <div class="userList">
-      <!-- :to="`/users/${element.id}`" -->
-      <!-- :to="{name: 'user', params: {user: element.id}}" -->
       <router-link
         :to="{ name: 'user', params: { user: element.id } }"
-        v-for="element in result"
+        v-for="element in getUsersRes"
         :key="element.id"
         class="user"
       >
@@ -18,12 +12,6 @@
         <h3>username: {{ element.username }}</h3>
         <p>email: {{ element.email }}</p>
         <ul>
-          Address:
-          <!-- // <li>city: {{element.address.city}}</li>
-                // <li>street: {{element.address.street}}</li>
-                // <li>zipcode: {{element.address.zipcode}}</li>
-                // <li>suite: {{element.address.suite}}</li> 
-                // <li>suite: {{element.address.get.lng}}</li> -->
           <template v-for="(item, key, idx) in element.address">
             <li :key="idx" v-if="key !== 'geo'">{{ key }}: {{ item }}</li>
             <ul :key="idx" v-else>
@@ -39,34 +27,26 @@
 </template>
 
 <script>
+import appUserSearch from "@/components/navigations/app-user-search.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
+  components: { appUserSearch },
   data() {
     return {
-      result: null,
       name: null,
-      startArray: null
+      loaded: false,
     };
   },
+  computed: {
+    ...mapGetters(["getUsersRes"]),
+  },
   methods: {
+    ...mapActions(["setUsers"]),
     async fetchUsers() {
-      const fetchUsers = await this.axios.get(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-      this.startArray = fetchUsers.data
-      this.result = fetchUsers.data;
-    },
-    filterName(value) {
-      let arr = [];
-      if (value) {
-        this.result.filter((el) => {
-          if (el.name.search(value) == 0) arr.push(el);
-        });
-        this.result = arr;
-      } else {
-        this.result = this.startArray;
+      if (!this.getUsersRes) {
+        await this.setUsers();
       }
-      console.log(arr);
-      console.log(this.startArray);
+      this.loaded = true;
     },
   },
   created() {

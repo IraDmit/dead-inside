@@ -6,11 +6,6 @@
     <p>email: {{ result.email }}</p>
     <ul>
       Address:
-      <!-- // <li>city: {{result.address.city}}</li>
-                // <li>street: {{result.address.street}}</li>
-                // <li>zipcode: {{result.address.zipcode}}</li>
-                // <li>suite: {{result.address.suite}}</li> 
-                // <li>suite: {{result.address.get.lng}}</li> -->
       <template v-for="(item, key, idx) in result.address">
         <li :key="idx" v-if="key !== 'geo'">{{ key }}: {{ item }}</li>
         <ul :key="idx" v-else>
