@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form>
+    <form ref="form">
       <input type="text" placeholder="name" v-model="name" />
       <span class="error" v-if="showError && !nameValid"
         >name is not valid</span

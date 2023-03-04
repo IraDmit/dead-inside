@@ -4,7 +4,8 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import store from './store'
-
+// filters
+import filters from './filters/filters'
 
 import '@/assets/style/global.scss';
 
@@ -14,5 +15,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  filters,
   render: h => h(App),
 }).$mount('#app')

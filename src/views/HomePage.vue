@@ -49,7 +49,7 @@ export default {
     //     console.log(res);
     //     this.result = res;
     //   });
-    console.log(this.result);
+    // console.log(this.result);
   },
 };
 </script>

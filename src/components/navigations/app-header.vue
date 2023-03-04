@@ -1,11 +1,11 @@
 <template>
   <header :class="{ black: isBlack }">
+    <component :is="$route.name === 'home' ? 'span' : 'router-link'" to='/'>logo</component>
     <nav>
       <router-link to="/users">users </router-link>
       <router-link to="/"> home</router-link>
     </nav>
-
-    <div class="rCol">
+    <div class="rCol" >
       <p @click="updateModalValue('login')">login</p>
       <p @click="updateModalValue('register')">register</p>
       <label class="switch">
@@ -13,15 +13,19 @@
         <span class="slider round" :class="{ black: isBlack }"></span>
       </label>
     </div>
+    <!-- <app-form ref="asd"/> -->
   </header>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+// import appForm from '../app-form.vue';
 export default {
+  // components: { appForm },
   data() {
     return {
       isBlack: false,
+      
     };
   },
   watch: {
@@ -32,6 +36,9 @@ export default {
     },
   },
   methods:{
+    test(){
+      alert('test')
+    },
     ...mapActions(['updateModalValue']),
   },
   mounted() {

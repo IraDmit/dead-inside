@@ -1,6 +1,6 @@
 <template>
     <div class="photoItem">
-        <h2 class="title">{{photoItem.title}}</h2>
+        <h2 class="title">{{photoItem.title | toUpperCase }}</h2>
         <img :src="photoItem.thumbnailUrl" :alt="photoItem.title">
     </div>
 </template>
