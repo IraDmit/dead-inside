@@ -6,9 +6,11 @@ import VueAxios from 'vue-axios'
 import store from './store'
 // filters
 import filters from './filters/filters'
+import { utils } from './mixins/utils.js'
 
 import '@/assets/style/global.scss';
 
+Vue.mixin(utils)
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 

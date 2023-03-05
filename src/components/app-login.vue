@@ -1,7 +1,13 @@
 <template>
   <div class="modal" @click.self="updateModalValue(null)">
     <div class="modal_content">
-      <slot name="header"></slot>
+      <slot name="header" v-if="$slots.header !== null">
+        <div class="header" v-if="$attrs.header > 0">
+          <nav>
+            <router-link to="/">home</router-link>
+          </nav>
+        </div>
+      </slot>
       <form>
         <input type="text" placeholder="login/email" v-model="login" />
         <span v-if="!loginValid && showError">login is not valid</span>
@@ -10,7 +16,9 @@
         <button @click.prevent="logIn">log in</button>
       </form>
 
-      <slot name="description" class="123" />
+      <slot name="description" v-if="$slots.description">
+        <h2>12312321</h2>
+      </slot>
       <!-- тут стилизация под ссылку будет , а не сам переход -->
       <span @click="updateModalValue('register')">registration</span>
     </div>
@@ -35,6 +43,9 @@ export default {
       return !!this.password;
     },
   },
+  mounted () {
+    console.log(this);
+  },
   methods: {
     ...mapActions(["updateModalValue"]),
     logIn() {
@@ -49,4 +60,8 @@ export default {
 .modal {
   color: #000;
 }
+.header{
+  background-color: #000;
+}
+
 </style>
