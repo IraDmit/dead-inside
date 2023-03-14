@@ -1,5 +1,6 @@
 <template>
   <div v-if="result">
+      <router-link :to="{name: 'user', params: { user: $route.params.user + 1}}">test</router-link>
     <button @click="goBack">back</button>
     <h2>name: {{ result.name }}</h2>
     <h3>username: {{ result.username }}</h3>
@@ -17,16 +18,21 @@
       </template>
     </ul>
     <ul>
-        <li v-for="(post) in posts" :key="post.id">
-            <h3>{{post.title}}</h3>
-            <p>{{post.body}}</p>
-        </li>
+      <li v-for="post in posts" :key="post.id">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.body }}</p>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
 export default {
+  beforeRouteUpdate(to, from, next) {
+    console.log("роут обновился");
+    console.log(to);
+    next();
+  },
   data() {
     return {
       result: null,
@@ -35,30 +41,25 @@ export default {
   },
   methods: {
     async fetchUser() {
-      // console.log(this.$router)
-      // console.log(this.$route)
       const fetchUser = await this.axios.get(
         `https://jsonplaceholder.typicode.com/users/${this.$route.params.user}`
       );
-      console.log(fetchUser);
       this.result = fetchUser.data;
     },
     async fetchPost() {
-      // console.log(this.$router)
-      // console.log(this.$route)
       const fetchPost = await this.axios.get(
         `https://jsonplaceholder.typicode.com/posts?userId=${this.$route.params.user}`
       );
       this.posts = fetchPost.data;
     },
-	goBack(){
-		this.$router.push({name: 'users'})
-	}
+    goBack() {
+      this.$router.push({ name: "users" });
+    },
   },
   async created() {
     await this.fetchUser();
-    if(this.$route.name == 'userLocation'){
-        await this.fetchPost();
+    if (this.$route.name == "userLocation") {
+      await this.fetchPost();
     }
   },
 };

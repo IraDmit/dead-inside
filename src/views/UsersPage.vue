@@ -8,9 +8,9 @@
         :key="element.id"
         class="user"
       >
-        <h2>name: {{ element.name }}</h2>
-        <h3>username: {{ element.username }}</h3>
-        <p>email: {{ element.email }}</p>
+        <h2> {{$t('name') }}: {{ element.name }}</h2>
+        <h3> {{$t('username') }}: {{ element.username }}</h3>
+        <p> {{ $t('email') }}: {{ element.email }}</p>
         <ul>
           <template v-for="(item, key, idx) in element.address">
             <li :key="idx" v-if="key !== 'geo'">{{ key }}: {{ item }}</li>

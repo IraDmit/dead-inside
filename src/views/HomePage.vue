@@ -28,11 +28,8 @@ export default {
 
   methods: {
     getResult1(form) {
-      console.log(form);
-      // console.log(res)
       this.formData = form;
       this.show = true;
-      // this.result = res
     },
   },
 
@@ -41,15 +38,6 @@ export default {
   async created() {
     const res = await this.axios.get('https://jsonplaceholder.typicode.com/photos?albumId=2')
     this.result = res.data
-    // await fetch("https://jsonplaceholder.typicode.com/photos?albumId=2")
-    //   .then((res) => {
-    //     return res.json();
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     this.result = res;
-    //   });
-    // console.log(this.result);
   },
 };
 </script>

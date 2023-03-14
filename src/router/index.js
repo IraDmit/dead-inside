@@ -6,45 +6,42 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/:locale(ru|en)?/",
     name: "home",
     component: HomePage,
   },
   {
-    path: "/users",
+    path: "/:locale(ru|en)?/users",
     name: "users",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "users" */ "../views/UsersPage.vue"),
   },
   {
-    path: "/users/:user",
+    path: "/:locale(ru|en)?/users/:user",
     name: "user",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta:{
+      layout: 'sidebar-layout',
+    },
     component: () =>
       import(/* webpackChunkName: "user" */ "../views/UserPage.vue"),
   },
   {
-    path: "/users/:user/posts",
+    path: "/:locale(ru|en)?/users/:user/posts",
     name: "userLocation",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "user" */ "../views/UserPage.vue"),
   },
   {
-    path: "/test",
+    path: "/:locale(ru|en)?/test",
     name: "test",
+    // meta: {
+    //   layout: 'error-layout'
+    // },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "user" */ "../views/TestPage.vue"),
+      import(/* webpackChunkName: "test" */ "../views/TestPage.vue"),
   },
   // {
   //   path: "/login",
@@ -58,6 +55,9 @@ const routes = [
   {
     path: "*",
     name: "error",
+    meta: {
+      layout: 'error-layout'
+    },
     component: () => import("../views/ErrorPage.vue"),
   },
 ];
@@ -67,5 +67,12 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+
+
+// router.onError(error => {
+//   console.log(error)
+//   router.push('/error')
+// })
 
 export default router;

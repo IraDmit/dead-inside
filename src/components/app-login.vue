@@ -10,9 +10,15 @@
       </slot>
       <form>
         <input type="text" placeholder="login/email" v-model="login" />
-        <span v-if="!loginValid && showError">login is not valid</span>
+        <span v-if="!$v.login.required && showError">{{$t("validations.required", {field: 'login'})}}</span>
+
+        <input type="email" placeholder="login/email" v-model="email" />
+        <span v-if="!$v.email.email && showError">email is not valid</span>
+        <span v-if="!$v.email.required && showError">{{$t("validations.required", {field: 'email'})}}</span>
+
         <input type="password" placeholder="password" v-model="password" />
-        <span v-if="!passwordValid && showError">password is not valid</span>
+        <span v-if="!$v.password.required && showError">{{$t("validations.required", {field: 'password'})}}</span>
+        
         <button @click.prevent="logIn">log in</button>
       </form>
 
@@ -27,30 +33,48 @@
 
 <script>
 import { mapActions } from "vuex";
+import { required, email } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
       login: null,
       password: null,
+      email: null,
       showError: false,
     };
   },
-  computed: {
-    loginValid() {
-      return !!this.login;
-    },
-    passwordValid() {
-      return !!this.password;
-    },
+  validations() {
+    return {
+      login: {
+        required,
+      },
+      email: {
+        required,
+        email,
+      },
+      password: {
+        required,
+      },
+    };
   },
-  mounted () {
-    console.log(this);
+  // computed: {
+  //   loginValid() {
+  //     return !!this.login;
+  //   },
+  //   passwordValid() {
+  //     return !!this.password;
+  //   },
+  // },
+  mounted() {
+    // console.log(this);
   },
   methods: {
     ...mapActions(["updateModalValue"]),
     logIn() {
       this.showError = true;
+      if ( !this.$v.$invalid ) {
       //когда то буит аксиос
+      }
     },
   },
 };
@@ -60,8 +84,7 @@ export default {
 .modal {
   color: #000;
 }
-.header{
+.header {
   background-color: #000;
 }
-
 </style>

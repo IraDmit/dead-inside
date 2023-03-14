@@ -9,5 +9,6 @@ Vue.filter('more10', (value) => {
 })
 
 Vue.filter('toUpperCase', (value)=>{
-    return value.toUpperCase();
+    let newValue = value[0].toUpperCase() + value.slice(1);
+    return newValue;
 })

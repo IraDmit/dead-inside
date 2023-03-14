@@ -14,7 +14,6 @@ export default new Vuex.Store({
   mutations: {
     //изменение переменных
     changeUsers(state, response, isFilterd = false) {
-      console.log(response);
       if (isFilterd) {
         state.users = !response.length ? response.a : response;
       } else {
@@ -26,7 +25,6 @@ export default new Vuex.Store({
   actions: {
     //dispatch или сеттер
     async setUsers({ commit }) {
-      console.log("set");
       const fetchUsers = await axios.get(
         "https://jsonplaceholder.typicode.com/users"
       );

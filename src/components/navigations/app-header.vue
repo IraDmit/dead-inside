@@ -1,13 +1,18 @@
 <template>
   <header :class="{ black: isBlack }">
-    <component :is="$route.name === 'home' ? 'span' : 'router-link'" to='/'>logo</component>
+    <component :is="$route.name === 'home' ? 'span' : 'router-link'" to="/"
+      >logo</component
+    >
     <nav>
       <router-link to="/users">users </router-link>
       <router-link to="/"> home</router-link>
     </nav>
-    <div class="rCol" >
-      <p @click="updateModalValue('login')">login</p>
-      <p @click="updateModalValue('register')">register</p>
+    <div class="rCol">
+      <div class="modals">
+        <p @click="updateModalValue('login')">login</p>
+        <p @click="updateModalValue('register')">register</p>
+      </div>
+      <lang-switcher></lang-switcher>
       <label class="switch">
         <input type="checkbox" v-model="isBlack" />
         <span class="slider round" :class="{ black: isBlack }"></span>
@@ -18,14 +23,15 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
+import langSwitcher from './lang-switcher.vue';
 // import appForm from '../app-form.vue';
 export default {
+  components: { langSwitcher },
   // components: { appForm },
   data() {
     return {
       isBlack: false,
-      
     };
   },
   watch: {
@@ -35,11 +41,11 @@ export default {
       // newValue ? localStorage.theme = 'white' : localStorage.theme = 'black';
     },
   },
-  methods:{
-    test(){
-      alert('test')
+  methods: {
+    test() {
+      alert("test");
     },
-    ...mapActions(['updateModalValue']),
+    ...mapActions(["updateModalValue"]),
   },
   mounted() {
     console.log(localStorage.theme);
@@ -51,6 +57,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.modals{
+  display: flex;
+}
 header {
   padding: 40px 60px;
   display: flex;
